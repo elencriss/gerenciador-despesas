@@ -9,7 +9,7 @@ public class DespesasController {
 	
 	@RequestMapping("/nova")
 	public String novaDespesa() {
-		return "despesas/cadastro";
+		return "despesas/cadastro"; 
 	}
 
 }
