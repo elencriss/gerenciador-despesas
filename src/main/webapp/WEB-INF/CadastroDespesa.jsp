@@ -1,17 +1,29 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
 <meta charset="UTF-8">
 <title>Cadastro de Despesa</title>
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-static-top"></nav>
 	
 	<form class="form-horizontal" method="POST" action="/despesas">
+		<c:if test="${!empty mensagem}">
+			<div class="alert alert-success">
+				<span>${mensagem}</span>
+			</div>
+		</c:if>
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h1 class="panel-title">Nova Despesa</h1>
+				<div class="clearfix">
+					<h1 class="panel-title impacta-titulo-panel">Nova Despesa</h1>
+					<a href="/despesas" class="btn btn-link impacta-link-panel">Listagem de Despesas</a>
+				</div>
 			</div>
 		</div>
 		
@@ -26,15 +38,9 @@
 			<label for="categoria" class="col-sm-2 control-label">Categoria</label>
 			<div class="col-sm-2">
 				<select class="form-control" name="categoria">
-					<option value="ALIMENTACAO">Alimentação</option>
-					<option value="TRANSPORTE">Transporte</option>
-					<option value="VESTUARIO">Vestuário</option>
-					<option value="CUIDADOS_PESSOAIS">Cuidados Pessoais</option>
-					<option value="MORADIA">Moradia</option>
-					<option value="LAZER">Lazer</option>
-					<option value="EDUCACAO">Educação</option>
-					<option value="COMPRAS">Compras</option>
-					<option value="DIVERSOS">Diversos</option>
+					<c:forEach items="${todasCategorias}" var="categoria">
+						<option value="${categoria}">${categoria.nome}</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
