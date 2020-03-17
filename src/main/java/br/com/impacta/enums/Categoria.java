@@ -1,4 +1,4 @@
-package br.com.impacta.model;
+package br.com.impacta.enums;
 
 public enum Categoria {
 	ALIMENTACAO("Alimentação"), TRANSPORTE("Tranporte"), VESTUARIO("Vestuário"), 

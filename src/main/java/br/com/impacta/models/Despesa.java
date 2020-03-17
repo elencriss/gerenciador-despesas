@@ -1,4 +1,4 @@
-package br.com.impacta.model;
+package br.com.impacta.models;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,6 +15,8 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
+import br.com.impacta.enums.Categoria;
+
 @Entity
 public class Despesa {
 	
@@ -27,7 +29,7 @@ public class Despesa {
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
 	
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date data;
 	
