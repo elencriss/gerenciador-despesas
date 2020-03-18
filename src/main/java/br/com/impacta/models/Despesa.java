@@ -30,7 +30,7 @@ public class Despesa {
 	private Categoria categoria;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 	
 	@NumberFormat(pattern="#,##0.00")

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,29 +19,29 @@ import br.com.impacta.services.DespesaService;
 @RequestMapping("/despesas")
 public class DespesasController {
 	
-	private static final String VIEW = "despesas/cadastro";
+	private static final String VIEW_CADASTRO = "despesas/cadastro";
+	private static final String VIEW_LISTAGEM = "despesas/listagem";
 	
 	@Autowired
 	private DespesaService despesaService;
 	
 	@RequestMapping("/nova")
 	public ModelAndView novaDespesa(ModelAndView mv) {
-		mv.setViewName(VIEW);
+		mv.setViewName(VIEW_CADASTRO);
 		return mv; 
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView despesas(ModelAndView mv) {
-//		List<Despesa> todasDespesas = despesas.findAll();
-		mv.setViewName("despesas/listagem");
-//		mv.addObject("despesas", todasDespesas);
+		mv.setViewName(VIEW_LISTAGEM);
+		mv.addObject("listaDespesas", despesaService.listarDespesas());
 		return mv;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView salvar(Despesa despesas, ModelAndView mv) {
 		despesaService.salvar(despesas);
-		mv.setViewName(VIEW);
+		mv.setViewName(VIEW_CADASTRO);
 		mv.addObject("mensagem", "Despesa salva com sucesso!");
 		return mv;
 	}
@@ -50,10 +51,10 @@ public class DespesasController {
 		return Arrays.asList(Categoria.values());
 	}
 	
-//	@RequestMapping(value="{codigo}", method=RequestMethod.DELETE)
-//	public String excluir(@PathVariable Long codigo) {
-//		despesas.delete(codigo);
-//		return "redirect:/despesas";
-//	}
+	@RequestMapping(value="{codigo}", method=RequestMethod.DELETE)
+	public String excluir(@PathVariable Long codigo) {
+		despesaService.deletarPorId(codigo);
+		return VIEW_LISTAGEM;
+	}
 
 }

@@ -32,54 +32,51 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${despesas}" var="despesa">
-					<tr>
-						<td class="text-center">${despesa.codigo}</td>
-						<td class="text-left">${despesa.descricao}</td>
-						<td class="text-center">${despesa.categoria.nome}</td>
-						<td class="text-center"><fmt:formatDate value="${despesa.data}" type="date" pattern="dd/MM/yyyy"/></td>
-						<td class="text-right"><fmt:formatNumber value="${despesa.valor}" type="currency"/></td>
-						<td class="text-left">${despesa.observacoes}</td>
-						<td class="text-center">
-							<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmaRemocaoModal" data-whatever="${despesas.codigo}">
-								<span class="glyphicon glyphicon-remove"></span>
-							</a>
-						</td>
-					</tr>
-				</c:forEach>
-				<c:if test="${despesas.isEmpty()}">
-					<tr>
-						<td class="text-center" colspan="7"><i>NENHUMA DESPESA FOI ENCONTRADA.</i></td>
-					</tr>
-				</c:if>
+				<tr th:if="${listaDespesas != null && !listaDespesas.isEmpty()}"
+						th:each="despesa : ${listaDespesas}">
+					<td class="text-center" th:text="${despesa.codigo}"></td>
+					<td class="text-left" th:text="${despesa.descricao}"></td>
+					<td class="text-center" th:text="${despesa.categoria.nome}"></td>
+					<td class="text-center" th:text="${#dates.format(despesa.data, 'dd/MM/yyy')}"></td>
+					<td class="text-right" th:text="${#numbers.formatCurrency(despesa.valor)}"></td>
+					<td class="text-left" th:text="${despesa.observacoes}"></td>
+					<td class="text-center">
+						<a class="btn btn-link btn-xs link-exclusao"
+							th:attr="data-codigo=${despesa.codigo}"> 
+							<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</td>
+				</tr>
+				<tr th:if="${listaDespesas == null || listaDespesas.isEmpty()}">
+					<td class="text-center" colspan="7"><i>NENHUMA DESPESA FOI ENCONTRADA.</i></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div class="modal fade" id="confirmaRemocaoModal" tabindex="-1" data-keybord="false" data-backdrop="static">
+	<div class="modal fade" id="confirmaRemocaoModal"
+			data-keyboard="false" data-backdrop="static">
 		<div class="modal-dialog">
-			<form action="/despesas" method="POST">
-				<input type="hidden" name="_method" value="DELETE">
-
+			<form action="/despesas" method="DELETE">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title">Confirmação</h4>
 					</div>
 
 					<div class="modal-body">
-						<span>Deseja realmente remover esta despesa?</span>
+						<span>Deseja realmente remover a despesa ?</span>
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-primary">Confirmar</button>
+						<button type="button" class="btn btn-link" id="cancelar">Cancelar</button>
+						<button type="submit" class="btn btn-primary" id="confirmar">Confirmar</button>
 					</div>
 				</div>
 			</form>
 		</div>
-
 	</div>
 	<script src="/js/jquery-3.1.1.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/despesa.js"></script>
+	<script src="/js/despesa-listagem.js"></script>
+	
 </body>
 </html>

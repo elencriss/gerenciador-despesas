@@ -1,5 +1,7 @@
 package br.com.impacta.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,18 @@ public class DespesaServiceImpl implements DespesaService{
 		despesaRepository.save(despesas);
 		
 	}
+
+	@Override
+	public List<Despesa> listarDespesas() {		
+		return despesaRepository.findAll();
+	}
+
+	@Override
+	public void deletarPorId(Long codigo) {
+		despesaRepository.deleteById(codigo);
+		
+	}
+
+
 
 }
