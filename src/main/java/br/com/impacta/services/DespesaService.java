@@ -11,5 +11,7 @@ public interface DespesaService {
 	List<Despesa> listarDespesas();
 	 
 	void deletarPorId(Long codigo);
+	
+	Despesa buscarPoId(Long codigo);
 
 }

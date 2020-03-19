@@ -11,6 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -24,15 +28,21 @@ public class Despesa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@NotEmpty(message="Descrição é obrigatória!")
 	private String descricao;
 	
+	@NotNull(message="Categoria é obrigatória!")
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
 	
+	@NotNull(message="Data é obrigatória!")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 	
+	@NotNull(message="Valor é obrigatório!")
+	@DecimalMin(value = "0.05", message="Valor não pode ser menor que R$ 0,05")
+	@DecimalMax(value = "10000.00", message="Valor não pode ser maior que R$ 10.000,00")
 	@NumberFormat(pattern="#,##0.00")
 	private BigDecimal valor;
 	

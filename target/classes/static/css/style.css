@@ -16,3 +16,8 @@
     float: left;
     padding-top: 2px;
 }
+
+span.error {
+	color: red;
+	padding-top: 3px;
+}

@@ -23,12 +23,12 @@
 			<thead>
 				<tr>
 					<th class="text-center col-md-1">#</th>
-					<th class="text-center col-md-3">Descrição</th>
+					<th class="text-center col-md-2">Descrição</th>
 					<th class="text-center col-md-2">Categoria</th>
 					<th class="text-center col-md-1">Data</th>
 					<th class="text-center col-md-2">Valor</th>
-					<th class="text-center col-md-4">Observações</th>
-					<th class="col-md-1"></th>
+					<th class="text-center col-md-3">Observações</th>
+					<th class="col-md-2"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -41,6 +41,10 @@
 					<td class="text-right" th:text="${#numbers.formatCurrency(despesa.valor)}"></td>
 					<td class="text-left" th:text="${despesa.observacoes}"></td>
 					<td class="text-center">
+						<a class="btn btn-link btn-xs" th:href="@{'/despesas/editar/' + ${despesa.codigo}}"> 
+							<span class="glyphicon glyphicon-edit"></span>
+						</a>
+						&nbsp;
 						<a class="btn btn-link btn-xs link-exclusao"
 							th:attr="data-codigo=${despesa.codigo}"> 
 							<span class="glyphicon glyphicon-remove"></span>
@@ -54,26 +58,25 @@
 		</table>
 	</div>
 	<div class="modal fade" id="confirmaRemocaoModal"
-			data-keyboard="false" data-backdrop="static">
+		data-keyboard="false" data-backdrop="static">
 		<div class="modal-dialog">
-			<form action="/despesas" method="DELETE">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title">Confirmação</h4>
-					</div>
-
-					<div class="modal-body">
-						<span>Deseja realmente remover a despesa ?</span>
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-link" id="cancelar">Cancelar</button>
-						<button type="submit" class="btn btn-primary" id="confirmar">Confirmar</button>
-					</div>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Confirmação</h4>
 				</div>
-			</form>
+
+				<div class="modal-body">
+					<span>Deseja realmente remover a despesa ?</span>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" id="cancelar">Cancelar</button>
+					<button type="submit" class="btn btn-primary" id="confirmar">Confirmar</button>
+				</div>
+			</div>
 		</div>
 	</div>
+	
 	<script src="/js/jquery-3.1.1.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/despesa-listagem.js"></script>
